@@ -24,7 +24,7 @@ const Span = styled.span`
 function LogoApp(){
     return(
         <Div>
-            <Img src="/dist/Food (1).png" alt="LogoApp" />
+            <Img src="Food (1).png" alt="LogoApp" />
             <H2>Foodie <Span>Cart</Span></H2>
         </Div>
     )
