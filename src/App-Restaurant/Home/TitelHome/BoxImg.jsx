@@ -12,7 +12,7 @@ const Imge = styled.img`
 function BoxImg(){
     return(
         <DivImg>
-            <Imge src="/public/Food (1).png" alt="ImageHome" /> 
+            <Imge src="/dist/Food (1).png" alt="ImageHome" /> 
         </DivImg>
     )
 }

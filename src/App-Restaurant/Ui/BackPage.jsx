@@ -11,7 +11,7 @@ const Img = styled.img`
 
 function BackPage(){
     return(
-        <Img src="/public/hero.svg" alt="BackTitel" />
+        <Img src="/dist/hero.svg" alt="BackTitel" />
     )
 }
 
