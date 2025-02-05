@@ -40,8 +40,11 @@ const Button = styled.button`
     align-items: center;
     border:none;
 `
-
-
+const DivProduct = styled.div`
+    height:65vh;
+    overflow-y: auto;
+    padding:10px;
+`
 
 function Order(){
     const Navigate = useNavigate()
@@ -60,7 +63,9 @@ function Order(){
                     <P>Pay-food-app-store</P>
                     <H2 type="Size35">${totlePrice}</H2>
                 </div>
-                {Products.map(e => <BoxProductOrder key={e.id} Product={e}/>)}
+                <DivProduct>
+                    {Products.map(e => <BoxProductOrder key={e.id} Product={e}/>)}
+                </DivProduct>
             </DivMin>
             <DivMin>
                 <BoxInfoOrder />

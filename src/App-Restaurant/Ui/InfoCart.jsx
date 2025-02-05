@@ -57,7 +57,7 @@ function InfoCart(){
             <DivTotelPrice>
                 <H2 type="black">Payment</H2>
                 <Button >
-                    <Link to={"/Order"}>Check Out</Link>
+                    <Link style={{color:"#FFFF",textDecoration:"none"}} to={"/Order"}>Check Out</Link>
                 </Button>
             </DivTotelPrice>
         </DivInfo>

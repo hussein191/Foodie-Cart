@@ -8,14 +8,18 @@ import ShoppinCart from "./App-Restaurant/ShoppinCart/ShoppinCart"
 import FavoritesItems from "./App-Restaurant/Favorites/Favorites"
 import ProvidRouter from "./App-Restaurant/Ui/ProvidRouter"
 import RouterOrder from "./App-Restaurant/Ui/RouterOrders"
+import ContactUs from "./App-Restaurant/Contact/Contact"
 import Setting from "./App-Restaurant/setting/setting"
 import Orders from "./App-Restaurant/Orders/Orders"
+import About from "./App-Restaurant/About/About"
 import Order from "./App-Restaurant/order/order"
 import Singin from "./App-Restaurant/User/Singin"
 import Login from "./App-Restaurant/User/Login"
 import Home from "./App-Restaurant/Home/Home"
 import Menu from "./App-Restaurant/Menu/Menu"
 import MinApp from "./App-Restaurant/AppMin"
+
+
 
 
 const queryClient = new QueryClient({
@@ -47,6 +51,14 @@ const router = createBrowserRouter([
       {
         path:"/Orders",
         element:<RouterOrder><Orders /></RouterOrder>
+      },
+      {
+        path:"/About",
+        element:<About />
+      },
+      {
+        path:"ContactUs",
+        element :<ContactUs />
       },
       {
         path:"/ShoppinCart",

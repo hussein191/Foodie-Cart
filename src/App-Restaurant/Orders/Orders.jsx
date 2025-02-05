@@ -31,7 +31,7 @@ function Orders(){
     if(isLoading) return null
     const userId = user.user.id || null;
     const {Orders,count,isLoading:LoaddingOrders} = UseGetOrders(userId)
-    
+    console.log("Orders",Orders)
     return(
         <>
             <BoxFilter>
@@ -47,7 +47,7 @@ function Orders(){
                         <H2>My Orders ({count})</H2>
                     </DivTitel>
                     <div>
-                        {Orders.map(e => <BoxOrderUser key={e.id} Order={e} />)}
+                        {Orders.map((e,i) => <BoxOrderUser key={i}  Orders={e} />  ) }
                     </div>
                 </>
             }

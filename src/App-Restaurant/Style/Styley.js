@@ -107,10 +107,13 @@ export const Form = styled.form`
     `}
 `
 export const Span = styled.span`
-    width:100%;
     color:#FFFF;
     background-color: red;
     padding:4px;
+    ${(prop) => prop.type === "titel" &&`
+        color:rgba(64,64,64,0.8);
+        background-color: transparent;
+    `}
 `
 export const Div = styled.div`
     width: 100%;
@@ -181,6 +184,9 @@ export const DivBodyModle = styled.div`
     `}
     ${(prop) => prop.type === "User" &&`
         width:25%;
+    `}
+    ${(prop) => prop.type === "Order" &&`
+        width:90%;
     `}
 `
 export const DivCloesModule = styled.div`

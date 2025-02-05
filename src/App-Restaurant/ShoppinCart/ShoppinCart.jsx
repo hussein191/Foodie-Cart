@@ -14,6 +14,9 @@ const DivApp = styled.div`
 `
 const DivItems = styled.div`
     width:70%;
+    height:70vh;
+    overflow-y: auto;
+    padding:12px;
 `
 
 
@@ -24,7 +27,7 @@ function ShoppinCart(){
         <>
             {!Items.length ? <Spiner>Not Found!</Spiner>:
                 <> 
-                    <TitelPAge Name="Favorites Item" onclick={() => Dispatch(ClearCart()) } />
+                    <TitelPAge Name="Shopping Cart" onclick={() => Dispatch(ClearCart()) } />
                     <DivApp>
                         <DivItems>
                             {Items.map(e => <BoxtemCart key={e.id} Item={e}/>)}

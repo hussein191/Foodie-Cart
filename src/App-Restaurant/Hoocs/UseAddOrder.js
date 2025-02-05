@@ -8,9 +8,10 @@ function UseAddOrder(){
     const QueryClient = useQueryClient()
     const {mutate:AddOrder,isLoading} = useMutation({
         mutationFn:AddOrderApi,
-        onSuccess:() => {
+        onSuccess:(order) => {
             QueryClient.invalidateQueries({queryKey:["Orders"]})
             Navigate("/Orders",{replace:true})
+            return order
         }
     })
     return {AddOrder,isLoading}

@@ -20,10 +20,12 @@ const DivApp = styled.div`
 const DivImg = styled.div`
     display:flex;
     column-gap: 15px;
+    width:50%;
 `
 const Img = styled.img`
     width:60px;
     height:60px;
+    object-fit:cover;
 `
 const ButtonIcon = styled.button`
     background: transparent;

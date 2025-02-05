@@ -1,17 +1,19 @@
+import { useEffect, useState } from "react"
 import styled from "styled-components"
-import LogoApp from "./Logo"
-import NavBar from "./NavBar"
+
 import BackPage from "./BackPage"
-//box-shadow: 0 35px 35px -15px rgba(0,0,0,0.3);
+import NavBar from "./NavBar"
+import LogoApp from "./Logo"
+
+
+
 const Header = styled.header`
     position: absolute;
     top:0;
     left:0;
-    width:95%;
-    padding-right:40px;
-    padding-left:40px;
-    padding-top:5px;
-    padding-bottom: 5px;
+    width:98%;
+    padding-right:20px;
+    padding-left:20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,9 +22,26 @@ const Header = styled.header`
 `
 
 function HeaderApp(){
+    const [bgColor, setBgColor] = useState({})
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 10) {
+                setBgColor({backgroundColor:"#FFFF",boxShadow:" 0 35px 35px -15px rgba(0,0,0,0.3)"});
+            } else {
+                setBgColor(""); 
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return(
         <>
-        <Header>
+        <Header style={bgColor?bgColor:{}}>
             <LogoApp/>
             <NavBar />
         </Header>

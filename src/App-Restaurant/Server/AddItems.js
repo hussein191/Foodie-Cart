@@ -17,6 +17,19 @@ export async function AddOrderApi(Order){
     const {data,error} = await supabase
         .from("Orders")
         .insert([Order])
+        .select("id")
+        .single()
+    if(error){
+        console.error(error)
+    }
+    return data
+}
+
+// Add Order Item by user 
+export async function AddOrderItemApi(OrderItem){
+    const {data,error} = await supabase
+        .from("Order_item")
+        .insert([OrderItem])
     if(error){
         console.error(error)
     }

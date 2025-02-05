@@ -24,12 +24,12 @@ function OpenModuel({NameOpen,children}){
 }
 
 
-function WindowModule({NameWindow,children}){
+function WindowModule({NameWindow,Type,children}){
     const {Cloes,open} = useContext(ModuleContext)
     if(open !== NameWindow) return null
     return(
         <DivModule>
-            <DivBodyModle type="User">
+            <DivBodyModle type={Type}>
                 <DivCloesModule onClick={Cloes}>
                     <HiMiniXMark size={"30px"} color="#666" cursor={"pointer"} />
                 </DivCloesModule>

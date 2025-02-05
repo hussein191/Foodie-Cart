@@ -120,14 +120,14 @@ export async function GetReviewsApi(IDProduct){
     return data
 }
 
-// Get Orders form Api
+// Get Order items form Api
 export async function GetOrdersApi(userId,Page,Paid,OrderStatus){
     let query =  supabase
-        .from("Orders")
-        .select("*",{count:"exact"})
+        .from("Order_item")
+        .select(`quantity,OrderID!inner(*),ProductID!inner(*)`,{count:"exact"})
 
     if(userId){
-        query = query.eq("UserID",userId)
+        query = query.eq('OrderID.UserID',userId)
     }
     if(Page){
         const from = (Page-1) * Size_page
@@ -135,16 +135,58 @@ export async function GetOrdersApi(userId,Page,Paid,OrderStatus){
         query = query.range(from,to)
     }
     if(Paid){
-        query = query.eq("Paid",Paid)
+        query = query.eq("OrderID.Paid",Paid)
     }
     if(OrderStatus){
-        query = query.eq("OrderStatus",OrderStatus)
+        query = query.eq("OrderID.OrderState",OrderStatus)
     }
     
     const {data,count,error} = await query
     if(error){
         console.error(error)
     }
-    return {data,count}
+    
+    if(data){
+        const OrdersUser = {}
+        data.forEach(item => {
+            const idOrder = item.OrderID.id
+            if(!OrdersUser[idOrder]){
+                OrdersUser[idOrder] = {
+                    DataOrder : item.OrderID,
+                    Products : []
+                }
+            }
+            OrdersUser[idOrder].Products.push(item.ProductID)
+    })
+        const Order_itemsUser = Object.values(OrdersUser)
+        return {Order_itemsUser,count}
+    }
+    return 
 }
 
+// Get best-selling products from Api 
+export async function GetBestProductApi(){
+    const { data,error } = await supabase
+        .from("Order_item")
+        .select(`quantity,ProductID(*)`)
+    if(error){
+        console.error(error)
+    }
+
+    if(data){
+        const Products = {}
+        data.forEach(item => {
+            const id = item.ProductID.id
+            if(!Products[id]){
+                Products[id] = {
+                    ...item.ProductID,
+                    totalSold :0
+                }
+            }
+            Products[id].totalSold += item.quantity
+        })
+        const mostSoldProducts = Object.values(Products).sort((a, b) => b.totalSold - a.totalSold).slice(0,4);
+        return mostSoldProducts;
+    }
+    return 
+}

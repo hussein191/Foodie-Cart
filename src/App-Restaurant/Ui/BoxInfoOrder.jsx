@@ -8,8 +8,7 @@ import UseAddOrder from "../Hoocs/UseAddOrder"
 import UseGetUser from "../User/UseGetUser"
 import { Button } from "../Style/Styley"
 import BoxMap from "./BoxMap"
-
-
+import UseAddOrderItem from "../Hoocs/UseAddOrderItem";
 
 const DivINfo = styled.div`
     display: flex;
@@ -32,6 +31,7 @@ const InputInfo = styled.input`
 function BoxInfoOrder(){
     const Products = useSelector((state) => state?.Cart?.ShopingCart || [])
     const {AddOrder,isLoading:LoaddingAdd} = UseAddOrder()
+    const {AddOrderItem} = UseAddOrderItem()
     const [NameUser,SetName] = useState("")
     const [PhoneUser,SetPhone] = useState("")
     const {user,isLoading} = UseGetUser()
@@ -39,30 +39,34 @@ function BoxInfoOrder(){
 
     if(isLoading || !user?.user?.user_metadata) return null
     const {Name,Phone,adress} = user.user.user_metadata
-    
+
     function handelAddOrder(){
         const NewOrder = {
-            UserID:user.user.id,
-            image:Products.map(e => e.image),
-            Products:Products.map(e => e.Name),
-            Phone:PhoneUser,
-            Nameuser:NameUser,
-            Address:adress,
-            Total:Products.reduce((a,b) => a+ (b.TotalPrice || 0),0),
+            UserID : user.user.id,
+            OrderState:"Processing",
             Paid:"Not Paid",
-            OrderStatus:"Processing",
+            NameUser:NameUser,
+            Address:adress,
+            Phone:PhoneUser,
             Data:new Date().getFullYear() + "-" + new Date().getMonth()+1 + "-" + new Date().getDate()
         }
-        AddOrder(NewOrder,{onSettled:() => {
-                toast.success("Order is done")
-                Dispatch(ClearCart())
+        AddOrder(NewOrder,{onSettled:(orderID) => {
+            Products.forEach(product => {
+                AddOrderItem({
+                    OrderID:orderID.id,
+                    ProductID:product.id,
+                    quantity:product.CountItem,
+                })
+            });
+            toast.success("Order is done")
         }})
+            Dispatch(ClearCart())
     }
 
     return(
         <DivINfo>
-            <InputInfo defaultValue={Name} onChange={(e) => SetName(e.target.value) } placeholder="Enter your Name..."/>
-            <InputInfo defaultValue={Phone} onChange={(e) => SetPhone(e.target.value) } placeholder="Enter your Phone number.."/>
+            <InputInfo defaultValue={Name} value={Name} onChange={(e) => SetName(e.target.value) } placeholder="Enter your Name..."/>
+            <InputInfo defaultValue={Phone} value={Phone} onChange={(e) => SetPhone(e.target.value) } placeholder="Enter your Phone number.."/>
             <BoxMap Location={adress}/>
             <Button disabled={LoaddingAdd} onClick={handelAddOrder} type="Order">pay</Button>
         </DivINfo>

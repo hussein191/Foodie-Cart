@@ -1,6 +1,6 @@
 import { FiShoppingCart } from "react-icons/fi";
 import { GrFavorite } from "react-icons/gr";
-import { Link } from "react-router-dom"
+import {NavLink } from "react-router-dom"
 import styled from "styled-components"
 
 import UseGetUser from "../User/UseGetUser"
@@ -13,7 +13,7 @@ const Ul = styled.ul`
     list-style: none;
     align-items: center;
 `
-const LinkStuly = styled(Link)`
+const LinkStuly = styled(NavLink)`
     text-decoration: none;
     font-size: 18px;
     font-weight: 450;
@@ -60,19 +60,19 @@ function NavBar(){
     return(
         <Ul>
             <li>
-                <LinkStuly type="link" to="/">Home</LinkStuly>
+                <LinkStuly  style={({isActive}) =>{return {color:isActive?"#666":"#1d1d1d"}}}  to="/">Home</LinkStuly>
             </li>
             <li>
-                <LinkStuly type="link" to="/Menu">Menu</LinkStuly>
+                <LinkStuly style={({isActive}) =>{return {color:isActive?"#666":"#1d1d1d"}}}  to="/Menu">Menu</LinkStuly>
             </li>
             <li>
-                <LinkStuly type="link" to="/Orders">Orders</LinkStuly>
+                <LinkStuly style={({isActive}) =>{return {color:isActive?"#666":"#1d1d1d"}}}  to="/Orders">Orders</LinkStuly>
             </li>
             <li>
-                <LinkStuly type="link" to="">About</LinkStuly>
+                <LinkStuly style={({isActive}) =>{return {color:isActive?"#666":"#1d1d1d"}}}  to="/About">About</LinkStuly>
             </li>
             <li>
-                <LinkStuly type="link" to="">Contact Us</LinkStuly>
+                <LinkStuly style={({isActive}) =>{return {color:isActive?"#666":"#1d1d1d"}}}  to="/ContactUs">Contact Us</LinkStuly>
             </li>
             <li>
                 <LinkStuly to="/Favorites">
@@ -86,12 +86,12 @@ function NavBar(){
                 <>
                     <li>
                         <Button>
-                            <LinkStuly to="/Login">Login</LinkStuly>
+                            <LinkStuly style={({isActive}) =>{return {color:isActive?"#666":"#1d1d1d"}}} to="/Login">Login</LinkStuly>
                         </Button>
                     </li>
                     <li>
                         <Button type="major">
-                            <LinkStuly to="/Singin">Sing Up</LinkStuly>
+                            <LinkStuly style={({isActive}) =>{return {color:isActive?"#666":"#1d1d1d"}}} to="/Singin">Sing Up</LinkStuly>
                         </Button>
                     </li>
                 </>
